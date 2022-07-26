@@ -4,7 +4,7 @@ with main_table as (
   select 
     * 
   from 
-    eight_weeksqlchallenge_case_study_1_fact_table
+    {{ ref('eight_weeksqlchallenge_case_study_1_fact_table') }}
 ), 
 -- What is the total amount each customer spent at the restaurant?
 total_amount_each_customer as (
