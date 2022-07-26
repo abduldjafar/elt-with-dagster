@@ -1,0 +1,1 @@
+film_id | store_count| store_that_sells_the_most | most_sales_in_the_country | total_of_selled_item_in_the_world|rental_payment_from_all_over_the_world | amount_sold_in_popular_country

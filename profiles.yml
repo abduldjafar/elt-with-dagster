@@ -1,0 +1,14 @@
+clickhouse_db:
+  target: dev
+  outputs:
+    dev:
+      type: "{{ env_var('DBT_DEV_TYPE') }}"
+      schema: "{{ env_var('DBT_DEV_SCHEMA') }}"
+      user: "{{ env_var('DBT_DEV_USER') }}"
+      #optional fields
+      host: "{{ env_var('DBT_DEV_HOST') }}"
+      port: 8123
+      verify: False
+      password: "{{ env_var('DBT_DEV_PASSWORD','') }}"
+      secure: False
+      connect_timeout: 10

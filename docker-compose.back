@@ -1,0 +1,43 @@
+version: "3.9"
+services:
+  
+
+  mysql:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: toor
+    ports:
+      - "13306:3306"
+  data-pusher:
+    build: 
+      context: .
+      dockerfile: data_pusher/Dockerfile
+    environment:
+         - CH_HOST=clickhouse
+         - MYSQL_HOST=mysql
+         - MYSQL_USER=root
+         - MYSQL_PASSWORD=toor
+         - MYSQL_PORT=3306
+    depends_on:
+      - mysql
+  dagster:
+    build: .
+    ports:
+      - "13000:3000"
+    environment:
+      CH_HOST: clickhouse
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: toor
+      MYSQL_PORT: 3306
+    depends_on:
+      - data-pusher
+      - clickhouse
+      - mysql
+  clickhouse:
+    image: clickhouse/clickhouse-server
+    ports:
+      - "18123:8123"
+      - "19000:9000"
+

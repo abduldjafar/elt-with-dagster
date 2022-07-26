@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+- name: dwh
+tables:
+- name: employees
+- name: cleaned_dept_emp
+- name: cleaned_dept_manager
+- name: current_dept_emp
+- name: departments
+- name: dept_emp
+- name: dept_emp_latest_date
+- name: dept_manager
+- name: salaries
+- name: titles

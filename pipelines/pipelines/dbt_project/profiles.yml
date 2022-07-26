@@ -1,0 +1,14 @@
+clickhouse_db:
+  target: dev
+  outputs:
+    dev:
+      type: clickhouse
+      schema: dwh
+      user: default
+      #optional fields
+      host: localhost
+      port: 8123
+      verify: False
+      password: ''
+      secure: False
+      connect_timeout: 10

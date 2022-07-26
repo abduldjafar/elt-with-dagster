@@ -1,0 +1,46 @@
+version: "3.9"
+services:
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: toor
+    ports:
+      - "27018:27017"
+  mysql:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: toor
+    ports:
+      - "13306:3306"
+  dagster:
+    platform: linux/amd64
+    build: .
+    ports:
+      - "13000:3000"
+    environment:
+      CH_HOST: clickhouse
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: toor
+      MYSQL_PORT: 3306
+      MONGODB_USER: root
+      MONGODB_PASSWORD: toor
+      MONGODB_HOST: mongo
+      MONGODB_PORT: 27017
+      DBT_DEV_TYPE: clickhouse
+      DBT_DEV_SCHEMA: dwh
+      DBT_DEV_USER: default
+      DBT_DEV_HOST: clickhouse
+      DBT_DEV_PORT: 8123
+    depends_on:
+      - mysql
+      - clickhouse
+      - mongo
+  clickhouse:
+    image: clickhouse/clickhouse-server
+    ports:
+      - "18123:8123"
+      - "19000:9000"

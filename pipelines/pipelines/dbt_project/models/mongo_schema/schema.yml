@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+- name: dwh
+tables:
+- name: listingsAndReviews
+- name: mongo_accounts
+- name: mongo_customers
+- name: mongo_transactions
