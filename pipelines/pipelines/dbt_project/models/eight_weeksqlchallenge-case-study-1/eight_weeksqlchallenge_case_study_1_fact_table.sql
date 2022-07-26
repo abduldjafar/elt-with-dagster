@@ -1,4 +1,4 @@
-{{ config(materialized = 'view') }} 
+{{ config(order_by='customer_id', engine='MergeTree()', materialized='table') }}
 
 with joined_table as (
   select 
