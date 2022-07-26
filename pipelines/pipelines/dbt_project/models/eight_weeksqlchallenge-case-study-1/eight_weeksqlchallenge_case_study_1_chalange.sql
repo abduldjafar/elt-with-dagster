@@ -1,3 +1,5 @@
+{{ config(materialized = 'view') }} 
+
 with main_table as (
   select 
     * 
@@ -111,6 +113,36 @@ populer_item_each_cust as (
     where ranked = 1
     
 ),
+-- Which item was purchased first by the customer after they became a member?
+filtered_get_joinned_date as (
+select 
+  m.customer_id as customer_id,
+  mb.join_date,
+  m.order_date,
+  m.product_name
+  
+from 
+  main_table as m 
+  inner join learn_members as mb on m.customer_id = mb.customer_id 
+where 
+  m.order_date >= mb.join_date
+),
+clean_filtered_get_joinned_date as (
+    
+    select customer_id,product_name from (
+        select 
+            t.* ,
+            rank() over (
+                partition by customer_id
+                order by order_date 
+            ) as ranked
+        from 
+            filtered_get_joinned_date as t
+    )
+    where ranked = 1
+
+),
+
 -- resume all tasks
 resume_all as (
   select 
@@ -120,13 +152,15 @@ resume_all as (
     t3.first_item_purchased as first_item_purchased, 
     most_buy.product_name as best_product, 
     t4.total_buy_best_prdct as total_buy_best_product ,
-    t5.most_populer_product_by_cust
+    t5.most_populer_product_by_cust as most_populer_product_by_cust,
+    t6.product_name as first_item_purchased_after_became_member
   from 
     total_amount_each_customer as t1 
     inner join days_each_customer_visited as t2 on t1.customer_id = t2.customer_id 
     inner join first_item_purchased as t3 on t1.customer_id = t3.customer_id 
     inner join total_buy_best_product as t4 on t1.customer_id = t4.customer_id
     inner join populer_item_each_cust as t5 on t1.customer_id = t5.customer_id
+    left join clean_filtered_get_joinned_date as t6 on t1.customer_id = t6.customer_id
     , 
     most_buy
 ) 
