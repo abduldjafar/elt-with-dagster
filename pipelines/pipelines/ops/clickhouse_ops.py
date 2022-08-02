@@ -1,7 +1,7 @@
 from dagster import op, Out
 
 
-def clickhouse_insert_datas(name="default", datas=(),ch_server=None):
+def clickhouse_insert_datas(name="default", datas=(), ch_server=None):
     @op(name=name, out={name: Out()})
     def insert_datas_to_clickhouse(datas):
         mysql_datas = datas[0]

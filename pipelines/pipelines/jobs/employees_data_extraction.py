@@ -18,7 +18,7 @@ my_dbt_resource = dbt_cli_resource.configured(
     {
         "project_dir": "{}/pipelines/dbt_project".format(os.path.abspath(os.getcwd())),
         "profiles_dir": "{}/pipelines/dbt_project".format(os.path.abspath(os.getcwd())),
-        "models": ["dwh","employees_cleanned","employees_schema"]
+        "models": ["dwh", "employees_cleanned", "employees_schema"],
     }
 )
 
@@ -35,10 +35,9 @@ def employees_elt_process():
             db_sources="employees",
             columns=tb_config["tb_columns"],
             rdbmsObj=mariadbObj,
-            chServer=ch_server
-            
+            chServer=ch_server,
         )
-        
+
         all_tables.append(datas())
 
     dbt_run_op(summary_report(all_tables))

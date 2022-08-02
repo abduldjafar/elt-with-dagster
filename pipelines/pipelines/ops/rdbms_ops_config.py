@@ -53,7 +53,6 @@ def mysql_employees_tables_config():
 
 def mysql_sakila_tables_config():
     return [
-        
         {
             "tb_name": "actor",
             "db_destination": "dwh",
@@ -162,7 +161,6 @@ def mysql_sakila_tables_config():
             "db_sources": "sakila",
             "tb_columns": ["*"],
         },
-        
         {
             "tb_name": "payment",
             "db_destination": "dwh",

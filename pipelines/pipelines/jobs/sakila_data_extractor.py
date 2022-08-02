@@ -17,9 +17,10 @@ my_dbt_resource = dbt_cli_resource.configured(
     {
         "project_dir": "{}/pipelines/dbt_project".format(os.path.abspath(os.getcwd())),
         "profiles_dir": "{}/pipelines/dbt_project".format(os.path.abspath(os.getcwd())),
-        "models": ["sakila_schema"]
+        "models": ["sakila_schema"],
     }
 )
+
 
 @job(resource_defs={"dbt": my_dbt_resource})
 def sakila_elt_process():
@@ -32,9 +33,8 @@ def sakila_elt_process():
             db_destination="dwh",
             db_sources="sakila",
             columns=tb_config["tb_columns"],
-
             rdbmsObj=mariadbObj,
-            chServer=ch_server
+            chServer=ch_server,
         )
         all_tables.append(datas())
 
