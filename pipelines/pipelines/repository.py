@@ -3,7 +3,9 @@
 from dagster import repository
 
 from pipelines.jobs.employees_data_extraction import employees_elt_process
+from pipelines.jobs.eigth_weeksqlchalange import dbt_process
 from pipelines.jobs.covid_from_urls_extractor import covid_elt_process
+from pipelines.jobs.sales_data_extraction import sales_elt_process
 from pipelines.jobs.mongo_datas_extraction import mongo_elt_jobs
 from pipelines.jobs.sakila_data_extractor import sakila_elt_process
 from pipelines.schedules.my_hourly_schedule import my_hourly_schedule_employees
@@ -18,7 +20,14 @@ def pipelines():
     https://docs.dagster.io/overview/repositories-workspaces/repositories
     """
 
-    jobs = [employees_elt_process,mongo_elt_jobs,sakila_elt_process,covid_elt_process]
+    jobs = [
+        employees_elt_process,
+        mongo_elt_jobs,
+        sakila_elt_process,
+        covid_elt_process,
+        sales_elt_process,
+        dbt_process,
+    ]
     schedules = [my_hourly_schedule_employees]
 
     return jobs + schedules

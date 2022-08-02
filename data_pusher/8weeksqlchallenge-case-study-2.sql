@@ -49,13 +49,15 @@ VALUES
 
 DROP TABLE IF EXISTS pizza_runner_runner_orders;
 CREATE TABLE pizza_runner_runner_orders (
-  order_id INTEGER,
-  runner_id INTEGER,
-  pickup_time VARCHAR(19),
-  distance VARCHAR(7),
-  duration VARCHAR(10),
-  cancellation VARCHAR(23)
-);
+  order_id Int8,
+  runner_id Int8,
+  pickup_time String,
+  distance String,
+  duration String,
+  cancellation String
+)
+ENGINE=MergeTree() ORDER BY order_id
+
 
 INSERT INTO pizza_runner_runner_orders
   (order_id, runner_id, pickup_time, distance, duration, cancellation)
@@ -73,22 +75,26 @@ VALUES
 
 
 DROP TABLE IF EXISTS pizza_runner_pizza_names;
-CREATE TABLE pizza_runner_pizza_runner_pizza_names (
-  pizza_id INTEGER,
-  pizza_name TEXT
-);
+CREATE TABLE dwh.pizza_runner_pizza_runner_pizza_names (
+  pizza_id Int8,
+  pizza_name String
+)
+ENGINE=MergeTree() ORDER BY pizza_id
+
 INSERT INTO pizza_runner_pizza_names
   (pizza_id, pizza_name)
 VALUES
   (1, 'Meatlovers'),
-  (2, 'Vegetarian');
+  (2, 'Vegetarian')
 
 
 DROP TABLE IF EXISTS pizza_runner_pizza_recipes;
 CREATE TABLE pizza_runner_pizza_recipes (
-  pizza_id INTEGER,
-  toppings TEXT
-);
+  pizza_id Int8,
+  toppings String
+)
+ENGINE=MergeTree() ORDER BY pizza_id
+
 INSERT INTO pizza_runner_pizza_recipes
   (pizza_id, toppings)
 VALUES
@@ -100,7 +106,9 @@ DROP TABLE IF EXISTS pizza_runner_pizza_toppings;
 CREATE TABLE pizza_runner_pizza_toppings (
   topping_id INTEGER,
   topping_name TEXT
-);
+)
+ENGINE=MergeTree() ORDER BY topping_id
+;
 INSERT INTO pizza_runner_pizza_toppings
   (topping_id, topping_name)
 VALUES
