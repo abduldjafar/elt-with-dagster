@@ -18,5 +18,5 @@ my_dbt_resource = dbt_cli_resource.configured(
 
 
 @job(resource_defs={"dbt": my_dbt_resource})
-def dbt_process():
+def eigth_weeksqlchalange_dbt_process():
     dbt_run_op()
