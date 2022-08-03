@@ -10,7 +10,7 @@ select
 from 
   (
     select 
-      order_id, 
+      toInt8(order_id) as order_id, 
       arrayJoin(
         if(
           length(

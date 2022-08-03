@@ -1,7 +1,7 @@
 {{ config(order_by='pizza_id', engine='MergeTree()', materialized='table') }}
 
 select 
-  pizza_id, 
+  toInt8(pizza_id) as pizza_id, 
   arrayJoin(
     extractAll(toppings, '\d+')
   ) as toppings 
